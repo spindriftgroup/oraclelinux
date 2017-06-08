@@ -5,142 +5,52 @@
 This repository contains templates for Oracle Linux that can create
 Vagrant boxes using Packer.
 
-## Current Boxes
+## Original README
+See the full and original [README at source](https://github.com/boxcutter/oraclelinux/blob/master/README.md)
 
-64-bit boxes:
+## Current Boxes as per official Oracle Commerce supported environments
 
-* [Oracle Linux 7.3 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol73)
-* [Oracle Linux 7.3 Desktop (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol73-desktop)
-* [Oracle Linux 7.2 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol72)
-* [Oracle Linux 7.2 Desktop (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol72-desktop)
-* [Oracle Linux 6.8 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol68)
-* [Oracle Linux 6.8 Desktop (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol68-desktop)
-* [Oracle Linux 6.7 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol67)
-* [Oracle Linux 6.7 Desktop (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol67-desktop)
-* [Oracle Linux 5.11 (64-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol511)
+For ATG 11.3:
 
-32-bit boxes:
+* Oracle Linux 7.2 (64-bit)
+* Oracle Linux 7.2 Desktop (64-bit)
 
-* [Oracle Linux 6.7 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol67-i386)
-* [Oracle Linux 5.11 (32-bit)](https://atlas.hashicorp.com/boxcutter/boxes/ol511-i386)
+For ATG 11.2
+* Oracle Linux 6.7 (64-bit)
+* Oracle Linux 6.7 Desktop (64-bit)
 
 ## Building the Vagrant boxes with Packer
 
-To build all the boxes, you will need [VirtualBox](https://www.virtualbox.org/wiki/Downloads),
-[VMware Fusion](https://www.vmware.com/products/fusion)/[VMware Workstation](https://www.vmware.com/products/workstation) and
-[Parallels](http://www.parallels.com/products/desktop/whats-new/) installed.
-
-Parallels requires that the
-[Parallels Virtualization SDK for Mac](http://www.parallels.com/downloads/desktop)
-be installed as an additional preqrequisite.
+To build all the boxes, you will need [VirtualBox](https://www.virtualbox.org/wiki/Downloads) installed.
 
 We make use of JSON files containing user variables to build specific versions of Ubuntu.
 You tell `packer` to use a specific user variable file via the `-var-file=` command line
-option.  This will override the default options on the core `oraclelinux.json` packer template,
+option.  This will override the default options on the core `oraclelinux-base.json` and `oraclelinux-full.json` packer template,
 which builds Oracle Linux 6.7 by default.
 
-For example, to build Oracle Linux 7.1, use the following:
+For example, to build Oracle Linux 7.2 headless basic, use the following:
 
-    $ packer build -var-file=ol71.json oraclelinux.json
+    $ packer build -var-file=ol72.json oraclelinux-base.json
 
-If you want to make boxes for a specific desktop virtualization platform, use the `-only`
-parameter.  For example, to build Oracle Linux 7.1 for VirtualBox:
+If you want to make boxes with a desktop and full installation use the desktop var file with the full installation json file.
+For example, to build Oracle Linux 6.7 for VirtualBox with desktop and fully installed phase 1 environment:
 
-    $ packer build -only=virtualbox-iso -var-file=ol71.json oraclelinux.json
+    $ packer build -var-file=ol67-desktop.json oraclelinux-full.json
 
-The boxcutter templates currently support the following desktop virtualization strings:
 
-* `parallels-iso` - [Parallels](http://www.parallels.com/products/desktop/whats-new/) desktop virtualization (Requires the Pro Edition - Desktop edition won't work)
+Supported builds currently are:
+
+    $ packer build -var-file=ol67.json oraclelinux-base.json
+    $ packer build -var-file=ol67.json oraclelinux-full.json
+    $ packer build -var-file=ol67-desktop.json oraclelinux-base.json
+    $ packer build -var-file=ol67-desktop.json oraclelinux-full.json
+
+The custom, reduced templates only support the following hypervisors:
+
 * `virtualbox-iso` - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) desktop virtualization
-* `vmware-iso` - [VMware Fusion](https://www.vmware.com/products/fusion) or [VMware Workstation](https://www.vmware.com/products/workstation) desktop virtualization
 
-## Building the Vagrant boxes with the box script
 
-We've also provided a wrapper script `bin/box` for ease of use, so alternatively, you can use
-the following to build Oracle Linux 7.1 for all providers:
-
-    $ bin/box build ol71
-
-Or if you just want to build Oracle Linux 7.1 for VirtualBox:
-
-    $ bin/box build ol71 virtualbox
-
-## Building the Vagrant boxes with the Makefile
-
-A GNU Make `Makefile` drives a complete basebox creation pipeline with the following stages:
-
-* `build` - Create basebox `*.box` files
-* `assure` - Verify that the basebox `*.box` files produced function correctly
-* `deliver` - Upload `*.box` files to [Artifactory](https://www.jfrog.com/confluence/display/RTF/Vagrant+Repositories), [Atlas](https://atlas.hashicorp.com/) or an [S3 bucket](https://aws.amazon.com/s3/)
-
-The pipeline is driven via the following targets, making it easy for you to include them
-in your favourite CI tool:
-
-    make build   # Build all available box types
-    make assure  # Run tests against all the boxes
-    make deliver # Upload box artifacts to a repository
-    make clean   # Clean up build detritus
-
-### Proxy Settings
-
-The templates respect the following network proxy environment variables
-and forward them on to the virtual machine environment during the box creation
-process, should you be using a proxy:
-
-* http_proxy
-* https_proxy
-* ftp_proxy
-* rsync_proxy
-* no_proxy
-
-### Tests
-
-The tests are written in [Serverspec](http://serverspec.org) and require the
-`vagrant-serverspec` plugin to be installed with:
-
-    vagrant plugin install vagrant-serverspec
-
-The `Makefile` has individual targets for each box type with the prefix
-`test-*` should you wish to run tests individually for each box.
-
-Similarly there are targets with the prefix `ssh-*` for registering a
-newly-built box with vagrant and for logging in using just one command to
-do exploratory testing.
-
-Upon logout `make ssh-*` will automatically de-register the box as well.
-
-### Makefile.local override
-
-You can create a `Makefile.local` file alongside the `Makefile` to override
-some of the default settings.  The variables can that can be currently
-used are:
-
-* CM
-* CM_VERSION
-* HEADLESS
-* \<iso_path\>
-* UPDATE
-
-`Makefile.local` is most commonly used to override the default configuration
-management tool, for example with Chef:
-
-    # Makefile.local
-    CM := chef
-
-Changing the value of the `CM` variable changes the target suffixes for
-the output of `make list` accordingly.
-
-Possible values for the CM variable are:
-
-* `nocm` - No configuration management tool
-* `chef` - Install Chef
-* `puppet` - Install Puppet
-* `salt`  - Install Salt
-
-You can also specify a variable `CM_VERSION`, if supported by the
-configuration management tool, to override the default of `latest`.
-The value of `CM_VERSION` should have the form `x.y` or `x.y.z`,
-such as `CM_VERSION := 11.12.4`
+### Build Variables
 
 The variable `HEADLESS` can be set to run Packer in headless mode.
 Set `HEADLESS := true`, the default is false.
@@ -156,18 +66,25 @@ The variable `ISO_PATH` can be used to set the path to a directory with
 OS install images.  This override is commonly used to speed up Packer
 builds by pointing at pre-downloaded ISOs instead of using the default
 download Internet URLs.
+These customisations have only been tested against pre-downloaded ISOs
+and use the `iso_name` and `iso_path` user variables.
 
 The variables `SSH_USERNAME` and `SSH_PASSWORD` can be used to change
 the default name & password from the default `vagrant`/`vagrant`
 respectively.
+Please do not change these under any circumstances for developer circulation.
 
 The variable `INSTALL_VAGRANT_KEY` can be set to turn off installation
 of the default insecure vagrant key when the image is being used
 outside of vagrant.  Set `INSTALL_VAGRANT_KEY := false`, the default
 is true.
+Please leave this as per the default value.
+
+For full installations all the software installers must be downloaded and
+available in your local software cache. These are copied into the VM, installed
+and removed from the VM. They are not removed from your local cache.
 
 ### Acknowledgments
 
-[SmartyStreets](http://www.smartystreets.com) is providing basebox hosting for the boxcutter project.
+[boxcutter project](https://github.com/boxcutter/oraclelinux) for providing basebox configurations from which this project is forked.
 
-<img src="https://d79i1fxsrar4t.cloudfront.net/images/brand/smartystreets.65887aa3.png" width="320">
