@@ -84,6 +84,13 @@ For full installations all the software installers must be downloaded and
 available in your local software cache. These are copied into the VM, installed
 and removed from the VM. They are not removed from your local cache.
 
+### Local Vagrant installation
+
+If you are developing, building and testing these, once built the box is in the box/virtualbox directory.
+You can then add the basebox to vagrant (use --force if the box already exists):
+
+    $ vagrant box add ~/path/to/project/oraclelinux/box/virtualbox/ol67-1.0.0.box --name=ol67-1.0.0 --force
+
 ### Acknowledgments
 
 [boxcutter project](https://github.com/boxcutter/oraclelinux) for providing basebox configurations from which this project is forked.
