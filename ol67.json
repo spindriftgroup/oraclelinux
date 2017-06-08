@@ -1,12 +1,12 @@
 {
-  "_comment": "Build with `packer build -var-file=ol67.json oraclelinux.json`",
+  "_comment": "Build with `packer build -var-file=ol67.json oraclelinux-base|full.json`",
   "vm_name": "ol67",
   "cpus": "1",
   "disk_size": "65536",
-  "iso_checksum": "dd7231b378f23e2e846ac78b0c5d8974a23631d5",
-  "iso_checksum_type": "sha1",
-  "iso_name": "OracleLinux-R6-U7-Server-x86_64-dvd.iso",
-  "iso_url": "http://mirrors.dotsrc.org/oracle-linux/OL6/U7/x86_64/OracleLinux-R6-U7-Server-x86_64-dvd.iso",
+  "iso_checksum": "5871e01fc4c90d7c976c133758bba46d4153689c086d4fe03cbf3295b457f3a7",
+  "iso_checksum_type": "sha256",
+  "iso_name": "V77197-01-OL67_x86_64.iso",
+  "iso_path": "file://localhost/usr/local/software-share/linux",
   "kickstart": "ks6.cfg",
   "memory": "512"
 }

@@ -20,9 +20,6 @@ unzip $AWS_CLI_BUNDLE_FILE
 rm -rf $AWS_CLI_BUNDLE
 rm $AWS_CLI_BUNDLE_FILE
 
-# For Windows SMB install cifs-utils
-yum -y install cifs-utils
-
 # Install Apache 
 yum -y install httpd
 
@@ -37,9 +34,6 @@ if [ ! -f $ps_repo ]; then
   echo "gpgcheck=0" >> $ps_repo
 fi
 yum -y --enablerepo=mod-pagespeed install mod-pagespeed
-
-#Install samba
-yum -y install samba
 
 #Un-install PackageKit as it frequently creates a yum lock
 yum -y remove PackageKit

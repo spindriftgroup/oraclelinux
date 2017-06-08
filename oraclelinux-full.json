@@ -217,13 +217,13 @@
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
-        "scripts/common/install_oracle_xe.sh",
-        "scripts/common/install_jdk8.sh",
-        "scripts/common/install_jboss.sh",
-        "scripts/common/install_atg11.sh",
-        "scripts/common/install_atg11_csc.sh",
-        "scripts/common/install_atg11_crs.sh",
-        "scripts/common/install_endeca.sh"
+        "script/install_oracle_xe.sh",
+        "script/install_jdk8.sh",
+        "script/install_jboss.sh",
+        "script/install_atg11.sh",
+        "script/install_atg11_csc.sh",
+        "script/install_atg11_crs.sh",
+        "script/install_endeca.sh"
       ],
       "type": "shell"
     },
@@ -241,7 +241,7 @@
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
-        "scripts/common/install_atg11_patch.sh"
+        "script/install_atg11_patch.sh"
       ],
       "type": "shell"
     },
@@ -259,7 +259,7 @@
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
-        "scripts/common/install_atg11_patch.sh"
+        "script/install_atg11_patch.sh"
       ],
       "type": "shell"
     },
@@ -277,7 +277,7 @@
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
-        "scripts/common/install_atg11_patch.sh"
+        "script/install_atg11_patch.sh"
       ],
       "type": "shell"
     },
@@ -295,7 +295,7 @@
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
-        "scripts/common/install_atg11_patch.sh"
+        "script/install_atg11_patch.sh"
       ],
       "type": "shell"
     },
@@ -313,7 +313,7 @@
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
-        "scripts/common/install_atg11_patch.sh"
+        "script/install_atg11_patch.sh"
       ],
       "type": "shell"
     },

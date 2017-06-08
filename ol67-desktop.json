@@ -11,5 +11,5 @@
   "kickstart": "ks6-desktop.cfg",
   "memory": "1024",
   "vagrantfile_template": "tpl/vagrantfile-ol67-desktop.tpl",
-  "custom_script": "custom-desktop.sh"
+  "install_samba": "false"
 }
