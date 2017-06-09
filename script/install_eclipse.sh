@@ -31,7 +31,7 @@ eclipse_ini=$SOFTWARE_DIR/eclipse/eclipse.ini
 eclipse_executable=/usr/bin/eclipse
 eclipse_desktop=/usr/share/applications/eclipse.desktop
 
-tar -xvzf $LOCAL_SHARE_FILE -C $INSTALL_DIR
+tar -xvzf $local_share_file -C $INSTALL_DIR
 sudo chmod -R +r $INSTALL_DIR/eclipse
 
 touch $eclipse_executable
