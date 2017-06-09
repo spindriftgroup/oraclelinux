@@ -1,5 +1,5 @@
 {
-  "_comment": "Build with `packer build -var-file=ol67-desktop.json oraclelinux.json`",
+  "_comment": "Build with `packer build -var-file=ol67-desktop.json oraclelinux-full.json`",
   "vm_name": "ol67-desktop",
   "cpus": "1",
   "desktop": "true",
@@ -11,5 +11,6 @@
   "kickstart": "ks6-desktop.cfg",
   "memory": "1024",
   "vagrantfile_template": "tpl/vagrantfile-ol67-desktop.tpl",
-  "install_samba": "false"
+  "install_samba": "false",
+  "install_eclipse": "true"
 }

@@ -16,10 +16,13 @@ yum remove git -y
 cd /usr/src
 wget https://www.kernel.org/pub/software/scm/git/git-$git_version.tar.gz
 tar xzf git-$git_version.tar.gz
+rm git-$git_version.tar.gz
 
 cd git-$git_version
 make prefix=/usr/local/git all
 make prefix=/usr/local/git install
 echo "export PATH=$PATH:/usr/local/git/bin" >> /etc/bashrc
+echo "unset SSH_ASK_PASS" >> /etc/bashrc
+
 source /etc/bashrc
 

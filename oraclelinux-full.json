@@ -87,6 +87,7 @@
         "mkdir -p {{user `software_dir`}}/linux/endeca/CAS",
         "mkdir -p {{user `software_dir`}}/linux/endeca/PlatformServices",
         "mkdir -p {{user `software_dir`}}/linux/endeca/ToolsAndFrameworks",
+        "mkdir -p {{user `software_dir`}}/linux/eclipse",
         "chmod -R 777 {{user `software_dir`}}",
         "ls -la {{user `software_dir`}}/",
         "sudo mkdir -p {{user `installation_dir`}}",
@@ -194,6 +195,11 @@
       "type": "file"
     },
     {
+      "destination": "{{user `software_dir`}}/linux/eclipse/{{user `eclipse_installer`}}",
+      "source": "{{user `software_installer_dir`}}/eclipse/{{user `eclipse_installer`}}",
+      "type": "file"
+    },
+    {
       "environment_vars": [
         "HOME_DIR=/home/vagrant",
         "http_proxy={{user `http_proxy`}}",
@@ -215,7 +221,10 @@
         "MDEX_INSTALLER={{user `mdex_installer`}}",
         "PS_INSTALLER={{user `ps_installer`}}",
         "TAF_INSTALLER={{user `taf_installer`}}",
-        "CAS_INSTALLER={{user `cas_installer`}}"
+        "CAS_INSTALLER={{user `cas_installer`}}",
+        "ECLIPSE_INSTALLER={{user `eclipse_installer`}}",
+        "ECLIPSE_VERSION={{user `eclipse_version`}}",
+        "INSTALL_ECLIPSE={{user `install_eclipse`}}"
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
@@ -225,7 +234,8 @@
         "script/install_atg11.sh",
         "script/install_atg11_csc.sh",
         "script/install_atg11_crs.sh",
-        "script/install_endeca.sh"
+        "script/install_endeca.sh",
+        "script/install_eclipse.sh"
       ],
       "type": "shell"
     },
@@ -397,7 +407,10 @@
     "mdex_installer": "V78211-01-Oracle-Commerce-MDEX-6.5.2-Linux.zip",
     "ps_installer": "V78226-01-Oracle-Commerce-Guided-Search-Platform-Services-11.2-Linux.zip",
     "taf_installer": "V78208-01-Oracle-Commerce-TAF-11.2-Linux.zip",
-    "cas_installer": "V78204-01-Oracle-Commerce-CAS-11.2-Linux.zip"
+    "cas_installer": "V78204-01-Oracle-Commerce-CAS-11.2-Linux.zip",
+    "eclipse_installer": "eclipse-jee-neon-3-linux-gtk-x86_64.tar.gz",
+    "eclipse_version": "neon-3",
+    "install_eclipse": "false"
   }
 }
 
