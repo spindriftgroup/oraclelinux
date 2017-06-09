@@ -19,7 +19,7 @@ eclipse_internal_version[neon-R]="4.6.0"
 eclipse_internal_version[neon-3]="4.6.3"
 eclipse_internal_version[oxygen-R]="4.7.0"
 
-share_file_name=${eclipse_distro_files[$version]}
+share_file_name=${eclipse_distro_files[$ECLIPSE_VERSION]}
 
 profile_file=/home/$INSTALL_USER/.bash_profile
 
