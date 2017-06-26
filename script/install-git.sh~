@@ -22,7 +22,7 @@ cd git-$git_version
 make prefix=/usr/local/git all
 make prefix=/usr/local/git install
 echo "export PATH=$PATH:/usr/local/git/bin" >> /etc/bashrc
-echo "unset SSH_ASKPASS" >> /etc/bashrc
+echo "unset SSH_ASK_PASS" >> /etc/bashrc
 
 source /etc/bashrc
 

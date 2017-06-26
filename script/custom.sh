@@ -35,6 +35,9 @@ if [ ! -f $ps_repo ]; then
 fi
 yum -y --enablerepo=mod-pagespeed install mod-pagespeed
 
+#Install terminus-fonts
+sudo yum -y install terminus-fonts
+
 #Un-install PackageKit as it frequently creates a yum lock
 yum -y remove PackageKit
 

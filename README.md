@@ -44,6 +44,8 @@ Supported builds currently are:
     $ packer build -var-file=ol67.json oraclelinux-full.json
     $ packer build -var-file=ol67-desktop.json oraclelinux-base.json
     $ packer build -var-file=ol67-desktop.json oraclelinux-full.json
+    
+Note: If switching between a base or a full build, ensure the vm_name in the ol67xxx.json specifies the correct name.
 
 The custom, reduced templates only support the following hypervisors:
 

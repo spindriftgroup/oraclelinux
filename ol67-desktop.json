@@ -1,6 +1,6 @@
 {
   "_comment": "Build with `packer build -var-file=ol67-desktop.json oraclelinux-full.json`",
-  "vm_name": "ol67-desktop",
+  "vm_name": "ol67-desktop-base",
   "cpus": "1",
   "desktop": "true",
   "disk_size": "130048",
