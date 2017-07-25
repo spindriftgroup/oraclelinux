@@ -44,6 +44,11 @@
     }
   ],
   "provisioners": [
+     {
+      "destination": "/tmp/smb.conf",
+      "source": "{{user `software_installer_dir`}}/samba/smb.conf",
+      "type": "file"
+    },
     {
       "environment_vars": [
         "DESKTOP={{user `desktop`}}",
@@ -54,7 +59,6 @@
         "SSH_USERNAME={{user `ssh_username`}}",
         "SSH_PASSWORD={{user `ssh_password`}}",
         "GIT_VERSION={{user `git_version`}}",
-        "http_proxy={{user `http_proxy`}}",
         "https_proxy={{user `https_proxy`}}",
         "ftp_proxy={{user `ftp_proxy`}}",
         "rsync_proxy={{user `rsync_proxy`}}",
@@ -104,13 +108,15 @@
     "ssh_username": "vagrant",
     "update": "false",
     "vagrantfile_template": "",
-    "version": "1.0.0",
+    "version": "1.1.0",
+    "virtualbox_version": "5.1.24",
     "virtualbox_guest_os_type": "Oracle_64",
     "vm_name": "ol67",
     "vmware_guest_os_type": "oraclelinux-64",
     
     "install_samba": "true",
-    "git_version": "2.9.4"
+    "git_version": "2.9.4",
+    "software_installer_dir": "/usr/local/software-share/linux"
   }
 }
 
